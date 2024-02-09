@@ -287,7 +287,64 @@ public class StudentDB {
 
         file.delete();
         tempDB.renameTo(file);
+    }
 
+    public void hapusDataMahasiswa() throws IOException{
+        File file = new File(fileName);
+        FileReader fileInput = new FileReader(file);
+        BufferedReader bufferInput = new BufferedReader(fileInput);
+
+        File tempDB = new File("tempDB.txt");
+        FileWriter fileOutput = new FileWriter(tempDB);
+        BufferedWriter bufferOutput = new BufferedWriter(fileOutput);
+
+
+
+        tampilkanDatabase();
+        int nomorPilihan = operasi.getIntegerInput("Silahkan Pilih Data Mahasiswa Yang Ingin Dihapus : ");
+        String data = bufferInput.readLine();
+        int nomorData = 0;
+        boolean isFound = false;
+        while (data != null) {
+            nomorData++;
+            boolean isDelete = false;
+
+            StringTokenizer stringToken = new StringTokenizer(data, ",");
+            if (nomorPilihan == nomorData) {
+                System.out.println("==== DATA MAHASISWA YANG ANDA HAPUS ====");
+                System.out.println("Nama\t: " + stringToken.nextToken());
+                System.out.println("NIM\t: " + stringToken.nextToken());
+                System.out.println("Jurusan\t: " + stringToken.nextToken());
+                System.out.println("Kelas\t: " + stringToken.nextToken());
+
+                isDelete = operasi.getYesNo("Apakah anda yakin ingin menghapus data tersebut ? ");
+                isFound = true;
+            }
+            if (isDelete) {
+                System.out.println("Data Mahasiswa Berhasil Dihapus!");
+            } else {
+                bufferOutput.write(data);
+                bufferOutput.newLine();
+            }
+            data = bufferInput.readLine();
+        }
+
+
+        if (!isFound) {
+            System.out.println("Data Tidak Ditemukan!");
+        }
+
+        bufferOutput.flush();
+
+        fileInput.close();
+        bufferInput.close();
+        fileOutput.close();
+        bufferOutput.close();
+
+        System.gc();
+
+        file.delete();
+        tempDB.renameTo(file);
     }
 
 

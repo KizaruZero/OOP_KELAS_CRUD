@@ -24,7 +24,7 @@ public class Main {
                 case "2" -> studentDB.cariData();
                 case "3" -> studentDB.tambahDatabase();
                 case "4" -> studentDB.updateDataMahasiswa();
-                case "5" -> System.out.println("5");
+                case "5" -> studentDB.hapusDataMahasiswa();
                 case "6" -> isLanjutkan = false;
                 default -> System.err.println("Pilihan anda tidak sesuai, silahkan pilih 1-6");
             }
